@@ -7,14 +7,22 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Button,
+  AsyncStorage
 } from 'react-native';
 import { WebBrowser } from 'expo';
+import {routes} from '../navigation';
 
 import { MonoText } from '../components/StyledText';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null,
+  };
+
+  _signOutAsync = async () => {
+    await AsyncStorage.clear();
+    this.props.navigation.navigate(routes.Auth);
   };
 
   render() {
@@ -31,7 +39,7 @@ export default class HomeScreen extends React.Component {
               style={styles.welcomeImage}
             />
           </View>
-
+          <Button title="Actually, sign me out :)" onPress={this._signOutAsync} />
           <View style={styles.getStartedContainer}>
             {this._maybeRenderDevelopmentModeWarning()}
 
